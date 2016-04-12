@@ -1,0 +1,17 @@
+<h1><%= @conversation.subject  %></h1>
+
+<% @conversation.receipts_for(current_user).each do |receipt|  %>
+  <div>
+    <h4>
+      <%= receipt.message.sender.first_name  %>, sent:
+    </h4>
+    <p style="padding-left: 20px;"><%= receipt.message.body  %></p>
+  </div>
+<% end %>
+
+<%= form_tag conversation_messages_path(@conversation), method: :post do %>
+  <div class="form-group">
+    <%= text_area_tag :body, nil, class: "form-control"  %>
+  </div>
+  <%= submit_tag "Enviar", class: "btn btn-default"  %>
+<% end %>
